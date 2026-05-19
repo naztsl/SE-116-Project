@@ -1,4 +1,5 @@
 package model;
+
 public abstract class UtilityProvider extends Cell {
     protected int capacity;
     protected String utilityType;

@@ -1,4 +1,5 @@
 package model;
+
 public abstract class ServiceBuilding extends Cell {
 
     protected int radius;

@@ -1,4 +1,5 @@
 package model;
+
 public class School extends ServiceBuilding {
 
     public School(int row, int col, char symbol) {
