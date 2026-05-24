@@ -1,17 +1,29 @@
 package model;
 
 public class Commercial extends Zone{
-    public Commercial(int row, int col, char symbol) {
+    public Commercial(int row, int col) {
         super(row, col, 'C');
     }
 
     @Override
-    public void updateLevel(){
+    public void updateLevel() {
 
+        if (!hasAllUtilities()) {
+            level = 0;
+            return;
+        }
+
+        if (level < 3) {
+            level++;
+        }
     }
 
     @Override
-    public int calculateOutput(){
-        return 0;
+    public int calculateOutput() {
+        output = level * getMinimumUtility();
+        lifestyle = output;
+
+
+        return output;
     }
 }

@@ -1,5 +1,10 @@
 package model;
 
+/**
+  Base abstract class for all zone types.
+   Handles utility/resource data and level system.
+ */
+
 public abstract class Zone extends Cell {
     protected int level;
     protected int electricity;
@@ -113,15 +118,30 @@ public abstract class Zone extends Cell {
 
     public void resetTickData(){
 
-        electricity=0;
-        water=0;
-        internet=0;
-        population=0;
-        goods=0;
-        lifestyle=0;
-        security=false;
-        health=false;
-        education=false;
+        electricity = 0;
+        water = 0;
+        internet = 0;
+
+        population = 0;
+        goods = 0;
+        lifestyle = 0;
+
+        security = false;
+        health = false;
+        education = false;
+
+        output = 0;
+    }
+
+    public boolean hasAllUtilities() {
+        return electricity > 0 &&
+                water > 0 &&
+                internet > 0;
+    }
+
+    public int getMinimumUtility() {
+        return Math.min(electricity,
+                Math.min(water, internet));
     }
 
 
