@@ -1,6 +1,4 @@
-public class Main {
-    public static void main(String[] args) {
-        System.out.println("test");
+
 import io.MapLoader;
 import io.MapFormatException;
 import model.CityMap;

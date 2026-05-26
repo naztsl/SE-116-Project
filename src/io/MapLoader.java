@@ -52,18 +52,18 @@ public class MapLoader {
         return cityMap;
     }
 
-    /
+
     private static Cell createCellFromSymbol(char symbol, int row, int col) {
         switch (Character.toUpperCase(symbol)) {
             case 'H': return new Housing(row, col);
             case 'I': return new Industrial(row, col);
             case 'C': return new Commercial(row, col);
-            case 'P': return new PowerPlant(row, col);
-            case 'W': return new WaterPump(row, col);
-            case 'T': return new InternetHub(row, col);
-            case 'F': return new PoliceStation(row, col);
-            case 'D': return new Hospital(row, col);
-            case 'S': return new School(row, col);
+            case 'P': return new PowerPlant(row, col,'P');
+            case 'W': return new WaterPump(row, col,'W');
+            case 'T': return new InternetHub(row, col,'T');
+            case 'F': return new PoliceStation(row, col,'F');
+            case 'D': return new Hospital(row, col,'D');
+            case 'S': return new School(row, col,'S');
             case 'R': return new Road(row, col);
             case 'E':
             case ' ': return new EmptyCell(row, col);
