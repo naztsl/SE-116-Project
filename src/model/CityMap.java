@@ -2,6 +2,9 @@ package model;
 
 import io.MapFormatException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CityMap {
     private final Cell[][] grid;
     private final int width;
@@ -33,6 +36,51 @@ public class CityMap {
 
     public int getHeight() {
         return height;
+    }
+
+    public List<Zone> getZones() {
+        List<Zone> zones = new ArrayList<>();
+
+        for (int row = 0; row < height; row++) {
+            for (int col = 0; col < width; col++) {
+                Cell cell = grid[row][col];
+                if (cell instanceof Zone) {
+                    zones.add((Zone) cell);
+                }
+            }
+        }
+
+        return zones;
+    }
+
+    public List<UtilityProvider> getUtilityProviders() {
+        List<UtilityProvider> utilityProviders = new ArrayList<>();
+
+        for (int row = 0; row < height; row++) {
+            for (int col = 0; col < width; col++) {
+                Cell cell = grid[row][col];
+                if (cell instanceof UtilityProvider) {
+                    utilityProviders.add((UtilityProvider) cell);
+                }
+            }
+        }
+
+        return utilityProviders;
+    }
+
+    public List<ServiceBuilding> getServiceBuildings() {
+        List<ServiceBuilding> serviceBuildings = new ArrayList<>();
+
+        for (int row = 0; row < height; row++) {
+            for (int col = 0; col < width; col++) {
+                Cell cell = grid[row][col];
+                if (cell instanceof ServiceBuilding) {
+                    serviceBuildings.add((ServiceBuilding) cell);
+                }
+            }
+        }
+
+        return serviceBuildings;
     }
 
     public void printMap() {

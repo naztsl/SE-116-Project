@@ -1,9 +1,9 @@
 
+import engine.Simulation;
 import io.MapLoader;
 import io.MapFormatException;
 import model.CityMap;
-
-        public class Main {
+public class Main {
             public static void main(String[] args) {
                 if (args.length != 2) {
                     System.err.println("Usage: java -jar ObjectVilleGame.jar <map_file.txt> <ticks>");
@@ -26,7 +26,9 @@ import model.CityMap;
                 try {
                     CityMap cityMap = MapLoader.loadMap(mapFilePath);
                     System.out.println("Map loaded successfully. Dimensions: " + cityMap.getWidth() + "x" + cityMap.getHeight());
-                    cityMap.printMap();
+
+                    Simulation simulation = new Simulation(cityMap, ticks);
+                    simulation.run();
 
                 } catch (MapFormatException e) {
                     System.err.println("Configuration Error: " + e.getMessage());
