@@ -12,6 +12,7 @@ public class Simulation {
     private final ResourceManager resourceManager;
 
 
+
     public Simulation(CityMap cityMap, int ticks) {
         this.cityMap = cityMap;
         this.ticks = ticks;
@@ -31,8 +32,8 @@ public class Simulation {
         provideServices();
         distributeUtilities();
         resourceManager.distributePreviousProduction(cityMap);
-        updateZones();
         resourceManager.collectNewProduction(cityMap);
+        updateZones();
     }
 
     private void resetZonesForTick() {
@@ -41,9 +42,9 @@ public class Simulation {
         }
     }
 
-     private void provideServices() {
-         for (ServiceBuilding serviceBuilding : cityMap.getServiceBuildings()) {
-             for (Zone zone : cityMap.getZones()) {
+    private void provideServices() {
+        for (ServiceBuilding serviceBuilding : cityMap.getServiceBuildings()) {
+            for (Zone zone : cityMap.getZones()) {
                 boolean hadService = hasService(zone, serviceBuilding.getServiceType());
                 serviceBuilding.applyService(zone);
                 boolean hasServiceNow = hasService(zone, serviceBuilding.getServiceType());
@@ -69,11 +70,16 @@ public class Simulation {
 
             if (newLevel > oldLevel) {
                 System.out.println(getZoneTypeName(zone) + " at (" + zone.getRow() + "," + zone.getCol() + ") levels up from " + oldLevel + " to " + newLevel);
+            } else if (newLevel < oldLevel) {
+                System.out.println(getZoneTypeName(zone) + " at (" + zone.getRow() + "," + zone.getCol() + ") levels down from " + oldLevel + " to " + newLevel);
             }
         }
     }
+
+
+
     private boolean hasService(Zone zone, String serviceType) {
-         if (serviceType.equals("security")) {
+        if (serviceType.equals("security")) {
             return zone.hasSecurity();
         }
         if (serviceType.equals("health")) {

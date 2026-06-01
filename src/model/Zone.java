@@ -21,7 +21,8 @@ public abstract class Zone extends Cell {
 
     public Zone(int row, int col, char symbol) {
         super(row, col, symbol);
-        level=0;
+        level = 0;
+        resetTickData();
     }
 
 
@@ -116,27 +117,45 @@ public abstract class Zone extends Cell {
     public abstract void updateLevel();
     public abstract int calculateOutput();
 
-    public void resetTickData(){
-
+    public void resetTickData() {
         electricity = 0;
         water = 0;
         internet = 0;
-
         population = 0;
         goods = 0;
         lifestyle = 0;
-
         security = false;
         health = false;
         education = false;
-
         output = 0;
     }
 
     public boolean hasAllUtilities() {
-        return electricity > 0 &&
-                water > 0 &&
-                internet > 0;
+        return electricity > 0 && water > 0 && internet > 0;
+    }
+
+    public boolean hasElectricityAndWater() {
+        return electricity > 0 && water > 0;
+    }
+
+    public boolean hasPopulation() {
+        return population > 0;
+    }
+
+    public boolean hasGoods() {
+        return goods > 0;
+    }
+
+    public boolean hasLifestyle() {
+        return lifestyle > 0;
+    }
+
+    public boolean hasAllServices() {
+        return security && health && education;
+    }
+
+    public boolean isMaxLevel() {
+        return level >= 3;
     }
 
     public int getMinimumUtility() {
@@ -144,5 +163,8 @@ public abstract class Zone extends Cell {
                 Math.min(water, internet));
     }
 
+    public int getMinimumPopulationGoods() {
+        return Math.min(population, goods);
+    }
 
 }

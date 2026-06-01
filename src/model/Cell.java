@@ -22,6 +22,11 @@ public abstract class Cell {
     public char getSymbol() {
         return symbol;
     }
+
+    public void setSymbol(char symbol) {
+        this.symbol = symbol;
+    }
+
     @Override
     public String toString() {
         return String.valueOf(symbol);

@@ -7,24 +7,28 @@ public class Industrial extends Zone {
 
     @Override
     public void updateLevel() {
-
-        if (!hasAllUtilities()) {
+        if (!hasPopulation() || !hasElectricityAndWater()) {
             level = 0;
-            return;
-        }
-
-        if (level < 3) {
-            level++;
+        } else if (!security) {
+            level = 1;
+        } else if (population <= getMinimumUtility()) {
+            level = 2;
+        } else {
+            level = 3;
         }
     }
 
-
     @Override
     public int calculateOutput() {
+        int minimumUtility = Math.min(electricity, water);
 
-        output = level * getMinimumUtility();
+        if (level == 3) {
+            output = 2 * minimumUtility + population;
+        } else {
+            output = level * minimumUtility;
+        }
+
         goods = output;
-
         return output;
     }
 }

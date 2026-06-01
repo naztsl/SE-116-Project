@@ -33,16 +33,16 @@ public class ResourceManager {
         for (Zone zone : zones) {
             if (zone instanceof Housing) {
                 if (housingCount > 0) {
-                    zone.setLifestyle(totalLifestyle / housingCount);
+                    zone.setLifestyle(divideResource(totalLifestyle, housingCount));
                 }
             } else if (zone instanceof Industrial) {
                 if (industrialCount > 0) {
-                    zone.setPopulation(totalPopulation / industrialCount);
+                    zone.setPopulation(divideResource(totalPopulation, industrialCount));
                 }
             } else if (zone instanceof Commercial) {
                 if (commercialCount > 0) {
-                    zone.setPopulation(totalPopulation / commercialCount);
-                    zone.setGoods(totalGoods / commercialCount);
+                    zone.setPopulation(divideResource(totalPopulation, commercialCount));
+                    zone.setGoods(divideResource(totalGoods, commercialCount));
                 }
             }
         }
@@ -53,35 +53,34 @@ public class ResourceManager {
         totalGoods = 0;
         totalLifestyle = 0;
 
-         for (Zone zone : cityMap.getZones()) {
+        for (Zone zone : cityMap.getZones()) {
             int output = zone.calculateOutput();
 
-             if (zone instanceof Housing) {
+            if (zone instanceof Housing) {
                 totalPopulation += output;
-                if (output > 0) {
-                    System.out.println(getZoneTypeName(zone) + " at (" + zone.getRow() + "," + zone.getCol() + ") generated " + output + " population");
-                }
+                System.out.println(getZoneTypeName(zone) + " at (" + zone.getRow() + "," + zone.getCol() + ") generated " + output + " population");
             } else if (zone instanceof Industrial) {
                 totalGoods += output;
-                if (output > 0) {
-                    System.out.println(getZoneTypeName(zone) + " at (" + zone.getRow() + "," + zone.getCol() + ") generated " + output + " goods");
-                }
+                System.out.println(getZoneTypeName(zone) + " at (" + zone.getRow() + "," + zone.getCol() + ") generated " + output + " goods");
             } else if (zone instanceof Commercial) {
                 totalLifestyle += output;
-                if (output > 0) {
-                    System.out.println(getZoneTypeName(zone) + " at (" + zone.getRow() + "," + zone.getCol() + ") generated " + output + " lifestyle");
-                }
+                System.out.println(getZoneTypeName(zone) + " at (" + zone.getRow() + "," + zone.getCol() + ") generated " + output + " lifestyle");
             }
         }
     }
 
-    public int getTotalPopulation() {return totalPopulation;}
+    public int getTotalPopulation() {
+        return totalPopulation;
+    }
 
-    public int getTotalGoods() {return totalGoods;}
+    public int getTotalGoods() {
+        return totalGoods;
+    }
 
     public int getTotalLifestyle() {
         return totalLifestyle;
     }
+
     private String getZoneTypeName(Zone zone) {
         if (zone.getSymbol() == 'H') {
             return "House";
@@ -93,5 +92,12 @@ public class ResourceManager {
             return "Industrial";
         }
         return "Zone";
+    }
+
+    private int divideResource(int totalResource, int zoneCount) {
+        if (zoneCount <= 0) {
+            return 0;
+        }
+        return totalResource / zoneCount;
     }
 }
