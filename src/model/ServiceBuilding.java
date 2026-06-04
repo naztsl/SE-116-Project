@@ -27,7 +27,10 @@ public abstract class ServiceBuilding extends Cell {
         this.serviceType = serviceType;
     }
     public boolean isInRange(Zone zone) {
-        int distance = Math.abs(this.row - zone.getRow()) + Math.abs(this.col - zone.getCol());
+        int rowDistance = this.row - zone.getRow();
+        int colDistance = this.col - zone.getCol();
+        double distance = Math.sqrt(rowDistance * rowDistance + colDistance * colDistance);
+
         return distance <= radius;
     }
 

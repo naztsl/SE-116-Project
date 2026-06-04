@@ -15,8 +15,8 @@ public class MapLoader {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = br.readLine()) != null) {
-                if (!line.trim().isEmpty()) {
-                    lines.add(line.trim());
+                if (!line.isEmpty()) {
+                    lines.add(line);
                 }
             }
         } catch (IOException e) {

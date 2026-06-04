@@ -14,10 +14,10 @@ import java.util.Set;
 public class BFSHandler {
 
     private static final int[][] DIRECTIONS = {
-            {-1, 0},
             {1, 0},
-            {0, -1},
-            {0, 1}
+            {-1, 0},
+            {0, 1},
+            {0, -1}
     };
 
     public void distributeUtility(CityMap cityMap, UtilityProvider provider) {

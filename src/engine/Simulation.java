@@ -45,6 +45,14 @@ public class Simulation {
     private void provideServices() {
         for (ServiceBuilding serviceBuilding : cityMap.getServiceBuildings()) {
             for (Zone zone : cityMap.getZones()) {
+                if (!isWithinServiceRadius(serviceBuilding, zone)) {
+                    continue;
+                }
+
+                if (!canReceiveService(serviceBuilding, zone)) {
+                    continue;
+                }
+
                 boolean hadService = hasService(zone, serviceBuilding.getServiceType());
                 serviceBuilding.applyService(zone);
                 boolean hasServiceNow = hasService(zone, serviceBuilding.getServiceType());
@@ -54,6 +62,24 @@ public class Simulation {
                 }
             }
         }
+    }
+
+    private boolean isWithinServiceRadius(ServiceBuilding serviceBuilding, Zone zone) {
+        int rowDistance = serviceBuilding.getRow() - zone.getRow();
+        int colDistance = serviceBuilding.getCol() - zone.getCol();
+        double distance = Math.sqrt(rowDistance * rowDistance + colDistance * colDistance);
+
+        return distance <= serviceBuilding.getRadius();
+    }
+
+    private boolean canReceiveService(ServiceBuilding serviceBuilding, Zone zone) {
+        String serviceType = serviceBuilding.getServiceType();
+
+        if (serviceType.equals("education") || serviceType.equals("health")) {
+            return zone.getSymbol() == 'H';
+        }
+
+        return true;
     }
 
     private void distributeUtilities() {
