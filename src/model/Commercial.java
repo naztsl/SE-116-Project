@@ -7,14 +7,22 @@ public class Commercial extends Zone {
 
     @Override
     public void updateLevel() {
+        int targetLevel;
+
         if (!hasPopulation() || !hasGoods() || !hasAllUtilities()) {
-            level = 0;
+            targetLevel = 0;
         } else if (!security) {
-            level = 1;
+            targetLevel = 1;
         } else if (population <= getMinimumUtility() || goods <= getMinimumUtility()) {
-            level = 2;
+            targetLevel = 2;
         } else {
-            level = 3;
+            targetLevel = 3;
+        }
+
+        if (targetLevel > level) {
+            level++;
+        } else if (targetLevel < level) {
+            level--;
         }
     }
 

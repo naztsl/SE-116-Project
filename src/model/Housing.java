@@ -7,17 +7,24 @@ public class Housing extends Zone {
 
     @Override
     public void updateLevel() {
+        int targetLevel;
+
         if (!hasAllUtilities()) {
-            level = 0;
+            targetLevel = 0;
         } else if (!hasAllServices()) {
-            level = 1;
+            targetLevel = 1;
         } else if (!hasLifestyle()) {
-            level = 2;
+            targetLevel = 2;
         } else {
-            level = 3;
+            targetLevel = 3;
+        }
+
+        if (targetLevel > level) {
+            level++;
+        } else if (targetLevel < level) {
+            level--;
         }
     }
-
     @Override
     public int calculateOutput() {
         if (level == 3) {
